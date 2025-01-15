@@ -24,6 +24,7 @@ public struct MarkdownWithFrontMatter<FrontMatter> {
 }
 
 extension MarkdownWithFrontMatter: Equatable where FrontMatter: Equatable {}
+extension MarkdownWithFrontMatter: Sendable where FrontMatter: Sendable {}
 
 extension MarkdownWithFrontMatter {
     public struct Parser: Parsing.Parser, ParserPrinter where FrontMatter: Codable {
