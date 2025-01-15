@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "FrontmatterParsing",
+    name: "swift-frontmatter-parsing",
     platforms: [
       .iOS(.v13),
       .macOS(.v12),
