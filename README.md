@@ -1,4 +1,4 @@
-# MarkdownWithFrontMatter
+# FrontmatterParsing
 
 A concise Swift µ-package for parsing and printing Markdown files with YAML front matter. Built atop [swift-parsing](https://github.com/pointfreeco/swift-parsing) for the parsing layer and [Yams](https://github.com/jpsim/Yams) for YAML encoding/decoding. It supports **optional** front matter, an **optional** Markdown body, and provides a clean round-trip conversion—Markdown to Swift object and back again.
 
@@ -11,7 +11,7 @@ A concise Swift µ-package for parsing and printing Markdown files with YAML fro
 
    ```swift
    dependencies: [
-       .package(url: "https://github.com/your-org/MarkdownWithFrontMatter.git", from: "1.0.0")
+       .package(url: "https://github.com/woodymelling/swift-frontmatter-parsing.git", from: "0.1.0")
    ]
    ```
 
@@ -21,7 +21,7 @@ A concise Swift µ-package for parsing and printing Markdown files with YAML fro
    .target(
        name: "YourTarget",
        dependencies: [
-           .product(name: "MarkdownWithFrontMatter", package: "MarkdownWithFrontMatter")
+           .product(name: "FrontmatterParsing", package: "swift-frontmatter-parsing")
        ]
    )
    ```
@@ -30,7 +30,7 @@ A concise Swift µ-package for parsing and printing Markdown files with YAML fro
 ## Usage
 
 ```swift
-import MarkdownWithFrontMatter
+import FrontmatterParsing
 
 // 1. Define a Codable front matter model
 struct MyFrontMatter: Codable {
