@@ -31,5 +31,6 @@ let package = Package(
                 .product(name: "Yams", package: "yams")
             ]
         ),
+        .testTarget(name: "FrontmatterParsingTests", dependencies: ["FrontmatterParsing"])
     ]
 )

@@ -14,20 +14,23 @@ import Foundation
 
 
 public struct MarkdownWithFrontMatter<FrontMatter> {
+    public init(frontMatter: FrontMatter? = nil, body: String? = nil) {
+        self.frontMatter = frontMatter
+        self.body = body
+    }
+
     public var frontMatter: FrontMatter?
     public var body: String?
 }
 
 extension MarkdownWithFrontMatter: Equatable where FrontMatter: Equatable {}
 
-
-
 extension MarkdownWithFrontMatter {
-    struct Parser: Parsing.Parser, ParserPrinter where FrontMatter: Codable {
-        typealias Input = Substring
-        typealias Output = MarkdownWithFrontMatter
+    public struct Parser: Parsing.Parser, ParserPrinter where FrontMatter: Codable {
+        public typealias Input = Substring
+        public typealias Output = MarkdownWithFrontMatter
 
-        var body: some ParserPrinter<Input, Output> {
+        public var body: some ParserPrinter<Input, Output> {
             ParsePrint(.memberwise(MarkdownWithFrontMatter.init(frontMatter:body:))) {
                 Optionally {
                     Parsers.FrontMatter<FrontMatter>()
@@ -44,12 +47,12 @@ extension MarkdownWithFrontMatter {
 }
 
 extension Parsers {
-    struct FrontMatter<FrontMatter: Codable>: ParserPrinter {
-        typealias Input = Substring
+    public struct FrontMatter<FrontMatter: Codable>: ParserPrinter {
+        public typealias Input = Substring
 
         // We need to be careful here, because we want to parse everything between the delimiters as Yaml.
         // This is subtly different than parsing delimiter, yaml, delimiter.
-        var body: some ParserPrinter<Input, FrontMatter> {
+        public var body: some ParserPrinter<Input, FrontMatter> {
             "---"
             Whitespace(1, .vertical)
             PrefixUpTo("---").map(Conversions.SubstringToYaml<FrontMatter>())
@@ -88,6 +91,8 @@ extension Conversions {
 public struct MarkdownWithFrontMatterConversion<T: Codable>: Conversion {
     public typealias Input = String
     public typealias Output = MarkdownWithFrontMatter<T>
+
+    public init() {}
 
     public func apply(_ input: String) throws -> MarkdownWithFrontMatter<T> {
         return try MarkdownWithFrontMatter.Parser().parse(input)
